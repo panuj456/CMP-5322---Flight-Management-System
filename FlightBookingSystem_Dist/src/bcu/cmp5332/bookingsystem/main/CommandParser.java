@@ -83,6 +83,7 @@ public class CommandParser {
                     return new AddBooking(customerID, flightID, bookingDate);
                     
                 } else if (cmd.equals("editbooking")) {
+                //stored on customer, can modify and add parameter, ambiguous - make decision - justify
                     
                 } else if (cmd.equals("cancelbooking")) {
                 	int customerID = Integer.parseInt(parts[1]);

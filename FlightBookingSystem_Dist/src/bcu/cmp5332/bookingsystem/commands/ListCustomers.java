@@ -15,7 +15,7 @@ public class ListCustomers implements Command {
 	        for (Customer customer : customers) {
 	            System.out.println(customer.getDetailsShort());
 	        }
-	        System.out.println(customers.size() + " customer(s)");
+	        System.out.println(customers.size() + " customer(s)"); //check API
 	}
 
 }

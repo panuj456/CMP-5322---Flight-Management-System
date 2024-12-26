@@ -1,6 +1,8 @@
 package bcu.cmp5332.bookingsystem.data;
 
+import bcu.cmp5332.bookingsystem.commands.AddBooking;
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
+import bcu.cmp5332.bookingsystem.model.Booking;
 import bcu.cmp5332.bookingsystem.model.Flight;
 import bcu.cmp5332.bookingsystem.model.FlightBookingSystem;
 
@@ -25,15 +27,17 @@ public class BookingDataManager implements DataManager {
                 String line = sc.nextLine();
                 String[] properties = line.split(SEPARATOR, -1);
                 try {
-                    int id = Integer.parseInt(properties[0]);
-                    String flightNumber = properties[1];
-                    String origin = properties[2];
-                    String destination = properties[3];
-                    LocalDate departureDate = LocalDate.parse(properties[4]);
-                    Flight flight = new Flight(id, flightNumber, origin, destination, departureDate);
-                    fbs.addFlight(flight);
+                    int customerID = Integer.parseInt(properties[0]);
+                    int flightID = Integer.parseInt(properties[1]);
+                    LocalDate bookingDate = LocalDate.parse(properties[2]);
+                    //Flight flight = new Flight(id, flightNumber, origin, destination, departureDate);
+                    Booking booking = new Booking(fbs.getCustomerByID(customerID), fbs.getFlightByID(flightID), bookingDate); // ###Error, parsing objects as parameters that arent stored
+
+                    System.out.println(booking.getDetailsShort());
+                    fbs.addBookingList(booking);
                 } catch (NumberFormatException ex) {
-                    throw new FlightBookingSystemException("Unable to parse book id " + properties[0] + " on line " + line_idx
+                    throw new FlightBookingSystemException("Unable to pa"
+                    		+ "rse book id " + properties[0] + " on line " + line_idx
                         + "\nError: " + ex);
                 }
                 line_idx++;
@@ -46,12 +50,13 @@ public class BookingDataManager implements DataManager {
         // TODO: implementation here
     	//change to booking variables
     	try (PrintWriter out = new PrintWriter(new FileWriter(RESOURCE))) {
-            for (Flight flight : fbs.getFlights()) {
-                out.print(flight.getId() + SEPARATOR);
-                out.print(flight.getFlightNumber() + SEPARATOR);
-                out.print(flight.getOrigin() + SEPARATOR);
-                out.print(flight.getDestination() + SEPARATOR);
-                out.print(flight.getDepartureDate() + SEPARATOR);
+            for (Booking booking : fbs.getBookings()) {
+            	fbs.getCustomerByID(customerID);
+            	fbs.getFlightByID(flightID);
+            	bookingDate;
+                out.print(booking. + SEPARATOR);
+                out.print(booking.getFlight() + SEPARATOR);
+                out.print(booking.getBookingDate() + SEPARATOR);
                 out.println();
             }
         }

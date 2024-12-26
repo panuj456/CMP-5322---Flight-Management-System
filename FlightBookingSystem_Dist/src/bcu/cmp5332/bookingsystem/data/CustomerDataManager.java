@@ -28,7 +28,7 @@ public class CustomerDataManager implements DataManager {
                     String name = properties[1]; // Added missing name
                     String phone = properties[2]; // Added missing phone
                     Customer customer = new Customer(id, name, phone);
-                    fbs.addCustomer(customer); // Corrected to add a customer
+                    fbs.addCustomer(customer); // Corrected to add a customer ###Error, parsing objects as parameters that arent stored
                 } catch (NumberFormatException ex) {
                     throw new FlightBookingSystemException("Unable to parse customer id " + properties[0] + " on line " + line_idx
                             + "\nError: " + ex);
