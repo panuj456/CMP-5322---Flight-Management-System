@@ -83,7 +83,26 @@ public class Flight {
         return null;
     }
     
-    public void addPassenger(Customer passenger) {
+    public void addPassenger(Customer passenger) throws FlightBookingSystemException{
     	// TODO: implementation here
+    	if (passengers.contains(passenger)) {
+            throw new IllegalArgumentException("Duplicate Passenger. ");
+        }
+        for (Customer existing : passengers) {
+            if (existing.getName().equals(passenger.getName()) 
+                && existing.getPhone().equals(passenger.getPhone())) { 
+                throw new FlightBookingSystemException("There is a Customer with same "
+                        + "name and phone number in the system");
+            }
+        }
+        passengers.add(passenger);
+    }
+    public void removePassenger(Customer passenger) {
+    	if (passengers.contains(passenger)) {
+    		passengers.remove(passenger);
+    	}
+    	else {
+    		System.out.println("Not Found");
+    	}
     }
 }

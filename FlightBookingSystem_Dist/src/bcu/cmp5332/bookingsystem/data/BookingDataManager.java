@@ -3,6 +3,7 @@ package bcu.cmp5332.bookingsystem.data;
 import bcu.cmp5332.bookingsystem.commands.AddBooking;
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
 import bcu.cmp5332.bookingsystem.model.Booking;
+import bcu.cmp5332.bookingsystem.model.Customer;
 import bcu.cmp5332.bookingsystem.model.Flight;
 import bcu.cmp5332.bookingsystem.model.FlightBookingSystem;
 
@@ -30,11 +31,12 @@ public class BookingDataManager implements DataManager {
                     int customerID = Integer.parseInt(properties[0]);
                     int flightID = Integer.parseInt(properties[1]);
                     LocalDate bookingDate = LocalDate.parse(properties[2]);
-                    //Flight flight = new Flight(id, flightNumber, origin, destination, departureDate);
-                    Booking booking = new Booking(fbs.getCustomerByID(customerID), fbs.getFlightByID(flightID), bookingDate); // ###Error, parsing objects as parameters that arent stored
-
-                    System.out.println(booking.getDetailsShort());
-                    fbs.addBookingList(booking);
+                    Customer customer = fbs.getCustomerByID(customerID);
+                    Flight flight = fbs.getFlightByID(flightID);
+                    Booking booking = new Booking(customer, flight, bookingDate); // ###Error, parsing objects as parameters that arent stored
+                    customer.addBooking(booking);
+                    flight.addPassenger(customer);
+                	fbs.addBookingList(booking);
                 } catch (NumberFormatException ex) {
                     throw new FlightBookingSystemException("Unable to pa"
                     		+ "rse book id " + properties[0] + " on line " + line_idx
@@ -48,14 +50,11 @@ public class BookingDataManager implements DataManager {
     @Override
     public void storeData(FlightBookingSystem fbs) throws IOException {
         // TODO: implementation here
-    	//change to booking variables
+    	//saving data into file, storing Ids enable the booking loading with getbyid to work correctly
     	try (PrintWriter out = new PrintWriter(new FileWriter(RESOURCE))) {
             for (Booking booking : fbs.getBookings()) {
-            	fbs.getCustomerByID(customerID);
-            	fbs.getFlightByID(flightID);
-            	bookingDate;
-                out.print(booking. + SEPARATOR);
-                out.print(booking.getFlight() + SEPARATOR);
+                out.print(booking.getCustomerId() + SEPARATOR);
+                out.print(booking.getFlightId() + SEPARATOR);
                 out.print(booking.getBookingDate() + SEPARATOR);
                 out.println();
             }

@@ -1,6 +1,7 @@
 package bcu.cmp5332.bookingsystem.main;
 
 import bcu.cmp5332.bookingsystem.commands.LoadGUI;
+import bcu.cmp5332.bookingsystem.commands.ShowCustomer;
 import bcu.cmp5332.bookingsystem.commands.ShowFlight;
 import bcu.cmp5332.bookingsystem.model.FlightBookingSystem;
 import bcu.cmp5332.bookingsystem.commands.ListFlights;
@@ -70,7 +71,7 @@ public class CommandParser {
                 	return new ShowFlight(id);
                     
                 } else if (cmd.equals("showcustomer")) {
-                    
+                	return new ShowCustomer(id);
                 }
             
             } else if (parts.length == 3) {//for bookings {

@@ -25,6 +25,12 @@ public class Booking {
 	public Customer getCustomer() {
 		return customer;
 	}
+	public int getCustomerId() {
+		return customer.getId();
+	}
+	public int getFlightId() {
+		return flight.getId();
+	}
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}

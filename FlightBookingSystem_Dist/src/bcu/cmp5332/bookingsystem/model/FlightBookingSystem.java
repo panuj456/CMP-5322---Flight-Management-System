@@ -1,5 +1,6 @@
 package bcu.cmp5332.bookingsystem.model;
 
+import bcu.cmp5332.bookingsystem.commands.AddBooking;
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
 import java.time.LocalDate;
 import java.util.*;
@@ -89,6 +90,8 @@ public class FlightBookingSystem {
     	
 		bookingsList.remove(booking);
     }
+	
+	//public AddBooking(customerID, flightID, bookingDate);
 
 	}
 

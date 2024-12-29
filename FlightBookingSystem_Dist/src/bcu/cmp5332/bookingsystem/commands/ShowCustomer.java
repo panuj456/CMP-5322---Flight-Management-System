@@ -1,27 +1,21 @@
 package bcu.cmp5332.bookingsystem.commands;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
 import bcu.cmp5332.bookingsystem.model.Customer;
 import bcu.cmp5332.bookingsystem.model.Flight;
 import bcu.cmp5332.bookingsystem.model.FlightBookingSystem;
 
-public class ShowFlight implements Command {
+public class ShowCustomer implements Command{
     
 	private final int id;
 
-	public ShowFlight(int id) {
+	public ShowCustomer(int id) {
         this.id = id;
 	}
 	
     @Override
     public void execute(FlightBookingSystem flightBookingSystem) throws FlightBookingSystemException {
-        Flight flight = flightBookingSystem.getFlightByID(this.id);
-        System.out.println("Flight ID ("+this.id+") details "+ flight.getDetailsShort());
-        for (Customer item : flight.getPassengers()) {
-        System.out.println(item.getDetailsShort());
-        }
+        Customer customer = flightBookingSystem.getCustomerByID(this.id);
+        System.out.println("Customer ID ("+this.id+") details "+ customer.getDetailsShort());
     }
 }

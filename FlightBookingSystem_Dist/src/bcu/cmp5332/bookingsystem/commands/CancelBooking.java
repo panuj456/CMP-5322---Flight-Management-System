@@ -42,6 +42,7 @@ public class CancelBooking implements Command {
         }
         //must keep any modifications outside of iteration - Java rules
         customer.removeBooking(temp); 
+        flight.removePassenger(customerTemp);
 		flightBookingSystem.removeBooking(temp); //must use count, object in this form does not exist with date
 		System.out.println("Customer ID " + customerTemp.getId() + " canceled booking for " + temp.getDetailsShort());
     }

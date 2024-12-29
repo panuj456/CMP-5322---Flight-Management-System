@@ -27,10 +27,9 @@ public class AddBooking implements Command {
     	Customer customer = flightBookingSystem.getCustomerByID(customerID);
     	
     	Flight flight = flightBookingSystem.getFlightByID(flightID);
-        //flightBookingSystem.addBookingList(stufffss);
     	
     	Booking newBooking = new Booking(customer, flight, bookingDate);
-        
+        flight.addPassenger(customer); 
     	customer.addBooking(newBooking);
     	flightBookingSystem.addBookingList(newBooking);
         System.out.println("Customer ID " + customer.getId() + " added booking for " + newBooking.getDetailsShort());
