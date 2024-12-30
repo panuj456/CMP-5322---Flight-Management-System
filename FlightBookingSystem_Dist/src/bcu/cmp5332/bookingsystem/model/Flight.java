@@ -15,20 +15,24 @@ public class Flight {
     private String origin;
     private String destination;
     private LocalDate departureDate;
+    private int capacity;
+    private double price;
 
     private final Set<Customer> passengers;
 
-    public Flight(int id, String flightNumber, String origin, String destination, LocalDate departureDate) {
+    public Flight(int id, String flightNumber, String origin, String destination, LocalDate departureDate, int capacity, double price) {
         this.id = id;
         this.flightNumber = flightNumber;
         this.origin = origin;
         this.destination = destination;
         this.departureDate = departureDate;
+        this.capacity = capacity; //need method to check passanger capacity isnt full before adding customer
+        this.price = price;
         
         passengers = new HashSet<>();
     }
 
-    public int getId() {
+	public int getId() {
         return id;
     }
 
@@ -71,11 +75,28 @@ public class Flight {
     public List<Customer> getPassengers() {
         return new ArrayList<>(passengers);
     }
+    
+    public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public double getPrice() {
+		return this.price;
+	}
+	
+	public void setPrice(double price) {
+		this.price = price;
+	}
 	
     public String getDetailsShort() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY");
         return "Flight #" + id + " - " + flightNumber + " - " + origin + " to " 
-                + destination + " on " + departureDate.format(dtf);
+                + destination + " on " + departureDate.format(dtf) + " at price " + price
+                + " capacity " + passengers.size() + "/" + capacity;
     }
 
     public String getDetailsLong() {

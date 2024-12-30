@@ -2,6 +2,7 @@ package bcu.cmp5332.bookingsystem.commands;
 
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
 import java.time.LocalDate;
+import java.util.List;
 
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
 import bcu.cmp5332.bookingsystem.model.Booking;
@@ -29,9 +30,16 @@ public class AddBooking implements Command {
     	Flight flight = flightBookingSystem.getFlightByID(flightID);
     	
     	Booking newBooking = new Booking(customer, flight, bookingDate);
-        flight.addPassenger(customer); 
-    	customer.addBooking(newBooking);
-    	flightBookingSystem.addBookingList(newBooking);
-        System.out.println("Customer ID " + customer.getId() + " added booking for " + newBooking.getDetailsShort());
+    	
+    	List<Customer> temp = flight.getPassengers();
+        if (temp.size() < flight.getCapacity()) {
+        	flight.addPassenger(customer); 
+        	customer.addBooking(newBooking);
+        	flightBookingSystem.addBookingList(newBooking);
+            System.out.println("Customer ID " + customer.getId() + " added booking for " + newBooking.getDetailsShort());
+        }
+        else {
+        	System.out.println("Flight #" + flight.getId() + " capacity reached, passenger not addedd to flight, booking not added to system.");
+        }
     }
 }
