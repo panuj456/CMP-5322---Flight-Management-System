@@ -92,6 +92,8 @@ public class AddFlightWindow extends JFrame implements ActionListener {
             String origin = originText.getText();
             String destination = destinationText.getText();
             LocalDate departureDate = null;
+            //int capacity = null;
+            //Double price = null;
             try {
                 departureDate = LocalDate.parse(depDateText.getText());
             }
@@ -99,7 +101,7 @@ public class AddFlightWindow extends JFrame implements ActionListener {
                 throw new FlightBookingSystemException("Date must be in YYYY-DD-MM format");
             }
             // create and execute the AddFlight Command
-            Command addFlight = new AddFlight(flightNumber, origin, destination, departureDate);
+            Command addFlight = new AddFlight(flightNumber, origin, destination, departureDate);//, capacity, price);
             addFlight.execute(mw.getFlightBookingSystem());
             // refresh the view with the list of flights
             mw.displayFlights();

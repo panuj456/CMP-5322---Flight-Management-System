@@ -96,6 +96,12 @@ public class CommandParser {
                 	int customerID = Integer.parseInt(parts[1]);
                 	int flightID = Integer.parseInt(parts[2]);
                 	return new CancelBooking(customerID, flightID);
+                
+                } //Solely for FlightBookingSystemTest
+                else if (cmd.equals("addcustomertest")) {
+                	String name = parts[1];
+                	String phone = parts[2];
+                    return new AddCustomer(name, phone);  
                 }
             }
         } catch (NumberFormatException ex) {
