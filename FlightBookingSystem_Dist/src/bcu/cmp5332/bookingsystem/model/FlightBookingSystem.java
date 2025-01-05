@@ -11,6 +11,7 @@ public class FlightBookingSystem {
     
     private final Map<Integer, Customer> customers = new TreeMap<>();
     private final Map<Integer, Flight> flights = new TreeMap<>();
+    //private final Map<Integer, Booking> bookings = new TreeMap<>();
     private final ArrayList<Booking> bookingsList = new ArrayList<>(); //of objects
 
     public LocalDate getSystemDate() {
@@ -33,6 +34,13 @@ public class FlightBookingSystem {
         }
         return flights.get(id);
     }
+    
+    /*public Booking getBookingByID(int id) throws FlightBookingSystemException {
+        if (!bookings.containsKey(id)) {
+            throw new FlightBookingSystemException("There is no flight with that ID.");
+        }
+        return bookings.get(id);
+    }*/
 
     public Customer getCustomerByID(int id) throws FlightBookingSystemException {
         // TODO: implementation here (complete)
@@ -83,6 +91,7 @@ public class FlightBookingSystem {
 	public void addBookingList(Booking booking) throws FlightBookingSystemException {
         // TODO: implementation here
 		//validation here
+
     	bookingsList.add(booking);
     }
 	
@@ -91,7 +100,7 @@ public class FlightBookingSystem {
 		bookingsList.remove(booking);
     }
 	
-	//public AddBooking(customerID, flightID, bookingDate);
 
-	}
+
+}
 

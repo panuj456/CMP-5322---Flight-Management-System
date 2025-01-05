@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.plaf.basic.ComboPopup;
 
 public class MainWindow extends JFrame implements ActionListener {
 
@@ -42,6 +43,8 @@ public class MainWindow extends JFrame implements ActionListener {
     private JMenuItem custView;
     private JMenuItem custAdd;
     private JMenuItem custDel;
+    private JMenuItem custList;
+    private JMenuItem flightsViewPassengers; //for paticular flights 
 
     private FlightBookingSystem fbs;
 
@@ -86,9 +89,11 @@ public class MainWindow extends JFrame implements ActionListener {
         flightsView = new JMenuItem("View");
         flightsAdd = new JMenuItem("Add");
         flightsDel = new JMenuItem("Delete");
+        flightsViewPassengers = new JMenuItem("View Passengers"); // for display
         flightsMenu.add(flightsView);
         flightsMenu.add(flightsAdd);
         flightsMenu.add(flightsDel);
+        flightsMenu.add(flightsViewPassengers); // display
         // adding action listener for Flights menu items
         for (int i = 0; i < flightsMenu.getItemCount(); i++) {
             flightsMenu.getItem(i).addActionListener(this);
@@ -160,10 +165,10 @@ public class MainWindow extends JFrame implements ActionListener {
             new AddFlightWindow(this);
             
         } else if (ae.getSource() == flightsDel) {
-            
+            //this is for when you want to delete file 
             
         } else if (ae.getSource() == bookingsIssue) {
-            
+            //this is for when booking issues 
             
         } else if (ae.getSource() == bookingsCancel) {
             
@@ -173,24 +178,29 @@ public class MainWindow extends JFrame implements ActionListener {
             
             
         } else if (ae.getSource() == custAdd) {
-            
+            //this is for when we add a customer btw
             
         } else if (ae.getSource() == custDel) {
-            
-            
+            //this is for when we delete a customer btw 
+        	
+        } else if (ae.getSource() == flightsViewPassengers) {  // Action for viewing passengers (basically the display passanger
+            Flight selectedFlight = getSelectedFlight();  // You need to implement how to get the selected flight (check this )
+            displayCustomersForFlight(selectedFlight);
         }
+
     }
     
     public void displayCustomers() {
         List<Customer> customerList = fbs.getCustomers();
-        String[] columns = {"Customer ID", "Name", "Email Address"};
+        String[] columns = {"Customer ID", "Name", "Email Address", "Booking Count"};
 
-        Object[][] data = new Object[customerList.size()][3];
+        Object[][] data = new Object[customerList.size()][4];
         for (int i = 0; i < customerList.size(); i++) {
             Customer customer = customerList.get(i);
             data[i][0] = customer.getId();
             data[i][1] = customer.getName();
             data[i][2] = customer.getAddress(); //email address buddy 
+            data[i][3] = customer.getBookingSize();
         }
 
         JTable table = new JTable(data, columns);
@@ -221,11 +231,10 @@ public class MainWindow extends JFrame implements ActionListener {
     }	
     
     
-    public void displayCustomersForFlight(Flight flight) {
-        List<Customer> customersForFlight = fbs.getCustomers();  // You'll need a method like this in your system
 
+        public void displayCustomersForFlight(Flight flight) {
+        List<Customer> customersForFlight = flight.getPassengers();  // Get passengers for the selected flight
         String[] columns = {"Customer ID", "Name", "Bookings Count"};
-
         Object[][] data = new Object[customersForFlight.size()][3];
         for (int i = 0; i < customersForFlight.size(); i++) {
             Customer customer = customersForFlight.get(i);
@@ -235,12 +244,16 @@ public class MainWindow extends JFrame implements ActionListener {
         }
         JTable table = new JTable(data, columns);
         JScrollPane scrollPane = new JScrollPane(table);
-        
-        // Create a new frame for the flight customer list popup
-        JFrame popup = new JFrame("Customers for Flight: " + flight.getFlightNumber());
+        JFrame popup = new JFrame("Passengers for Flight: " + flight.getFlightNumber());
         popup.setSize(500, 300);
         popup.add(scrollPane);
         popup.setVisible(true);
     }
+
+    public Flight getSelectedFlight() {
+        // Implement this method to return the selected flight
+        return fbs.getFlights().get(0);  // Example, should be dynamic based on user selection
+    }
+
 
 }

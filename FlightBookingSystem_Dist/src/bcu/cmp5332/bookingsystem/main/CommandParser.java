@@ -101,7 +101,7 @@ public class CommandParser {
                 
                 } //Solely for FlightBookingSystemTest
                
-            } else if (parts.length == 3) {//for bookings {
+            } else if (parts.length == 4) {//for bookings {
                 } //Solely for FlightBookingSystemTest
                 if (cmd.equals("addcustomertest")) {
                 	String name = parts[1];

@@ -1,5 +1,6 @@
 package bcu.cmp5332.bookingsystem.commands;
 
+import bcu.cmp5332.bookingsystem.data.FlightBookingSystemData;
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
 import bcu.cmp5332.bookingsystem.model.Flight;
 import bcu.cmp5332.bookingsystem.model.FlightBookingSystem;
@@ -34,5 +35,6 @@ public class AddFlight implements  Command {
         Flight flight = new Flight(++maxId, flightNumber, origin, destination, departureDate, capacity, price);
         flightBookingSystem.addFlight(flight);
         System.out.println("Flight #" + flight.getId() + " added.");
+        //FlightBookingSystemData.store(fbs);
     }
 }
