@@ -12,6 +12,8 @@ public class Customer {
     private int id;
     private String name;
     private String phone;
+    private String address;
+    
     private final ArrayList<Booking> bookings; //bookingID seen in menu, given its own parameter now
     
     // TODO: implement constructor here
@@ -74,4 +76,12 @@ public class Customer {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+    public String getAddress() { // Getter for address
+        return address;
+    }
+
+    public void setAddress(String address) { // Setter for address
+        this.address = address;
+    }
 }
