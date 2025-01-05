@@ -17,15 +17,16 @@ public class Customer {
     private final ArrayList<Booking> bookings; //bookingID seen in menu, given its own parameter now
     
     // TODO: implement constructor here
-	public Customer(int id, String name, String phone) {
+	public Customer(int id, String name, String phone, String address) {
 		this.id = id;
 		this.name = name;
-		this.phone = phone;
+		this.phone = phone; 
+		this.address = address; //email
 		bookings = new ArrayList<>(); //of objects
 		}
 	
     public String getDetailsShort() {
-        return "Customer ID " + this.id + " Name  " + this.name + " Phone Number  " + this.phone;
+        return "Customer ID " + this.id + " Name  " + this.name + " Phone Number  " + this.phone + " Email Address " + this.address;
     }
     
     //add booking in customers stated in assignment brief and in skeleton code
@@ -51,6 +52,10 @@ public class Customer {
     public List<Booking> getBookings() {
 		return bookings;
 	}
+    
+    public int getBookingSize() {
+    	return bookings.size();
+    }
     
     // TODO: implementation of Getter and Setter methods (right click -> source -> generate) (done)
 	public int getId() {

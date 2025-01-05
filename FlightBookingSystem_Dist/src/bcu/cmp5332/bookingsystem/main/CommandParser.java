@@ -51,7 +51,9 @@ public class CommandParser {
                 String name = reader.readLine();
                 System.out.print("Phone Number: ");
                 String phone = reader.readLine();
-                return new AddCustomer(name, phone);
+                System.out.print("Email Address: ");
+                String email = reader.readLine();
+                return new AddCustomer(name, phone, email);
                 
             } else if (cmd.equals("loadgui")) {
                 return new LoadGUI();
@@ -98,12 +100,16 @@ public class CommandParser {
                 	return new CancelBooking(customerID, flightID);
                 
                 } //Solely for FlightBookingSystemTest
-                else if (cmd.equals("addcustomertest")) {
+               
+            } else if (parts.length == 3) {//for bookings {
+                } //Solely for FlightBookingSystemTest
+                if (cmd.equals("addcustomertest")) {
                 	String name = parts[1];
                 	String phone = parts[2];
-                    return new AddCustomer(name, phone);  
+                	String email = parts[3];
+                    return new AddCustomer(name, phone, email);  
                 }
-            }
+            
         } catch (NumberFormatException ex) {
 
         }

@@ -2,6 +2,7 @@ package bcu.cmp5332.bookingsystem.gui;
 
 import bcu.cmp5332.bookingsystem.data.FlightBookingSystemData;
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
+import bcu.cmp5332.bookingsystem.model.Booking;
 import bcu.cmp5332.bookingsystem.model.Customer;
 import bcu.cmp5332.bookingsystem.model.Flight;
 import bcu.cmp5332.bookingsystem.model.FlightBookingSystem;
@@ -182,14 +183,14 @@ public class MainWindow extends JFrame implements ActionListener {
     
     public void displayCustomers() {
         List<Customer> customerList = fbs.getCustomers();
-        String[] columns = {"Customer ID", "Name", "Address"};
+        String[] columns = {"Customer ID", "Name", "Email Address"};
 
         Object[][] data = new Object[customerList.size()][3];
         for (int i = 0; i < customerList.size(); i++) {
             Customer customer = customerList.get(i);
             data[i][0] = customer.getId();
             data[i][1] = customer.getName();
-            data[i][2] = customer.getAddress();
+            data[i][2] = customer.getAddress(); //email address buddy 
         }
 
         JTable table = new JTable(data, columns);
@@ -221,7 +222,7 @@ public class MainWindow extends JFrame implements ActionListener {
     
     
     public void displayCustomersForFlight(Flight flight) {
-        List<Customer> customersForFlight = fbs.getCustomersForFlight(flight);  // You'll need a method like this in your system
+        List<Customer> customersForFlight = fbs.getCustomers();  // You'll need a method like this in your system
 
         String[] columns = {"Customer ID", "Name", "Bookings Count"};
 
@@ -230,9 +231,8 @@ public class MainWindow extends JFrame implements ActionListener {
             Customer customer = customersForFlight.get(i);
             data[i][0] = customer.getId();
             data[i][1] = customer.getName();
-            data[i][2] = customer.getBookingsCount();  // You need to add this method to the Customer class
+            data[i][2] = customer.getBookingSize();
         }
-
         JTable table = new JTable(data, columns);
         JScrollPane scrollPane = new JScrollPane(table);
         

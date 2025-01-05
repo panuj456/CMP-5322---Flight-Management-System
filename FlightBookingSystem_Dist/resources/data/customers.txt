@@ -1,9 +1,9 @@
-1::Abdel-Rahman Tawil::07555555555::
-2::Kostas Vlachos::07596454545::
-3::Panu::07465388825::
-4::Mohammad Ali Ahmadzai::07538277735::
-5::Jephta Zekeng::07937462520::
-6::William Merrick::07923442318::
-7::Kacper Popis::07352644427::
-8::Angelo::078447545462::
-9::Summer::07563546254::
+1::Abdel-Rahman Tawil::07555555555::ART@gmail.com::
+2::Kostas Vlachos::07596454545::KV@gmail.com::
+3::Panu::07465388825::panu.kj@gmail.com::
+4::Mohammad Ali Ahmadzai::07538277735::Ali@gmail.com::
+5::Jephta Zekeng::07937462520::j.zekeng@gmail.com::
+6::William Merrick::07923442318::will.merick@gmail.com::
+7::Kacper Popis::07352644427::k.popis@gmail.com::
+8::Angelo Lagdameo::078447545462::angelo.lag@gmail.com::
+9::Summer Lawless::07563546254::summer.law@gmail.com::

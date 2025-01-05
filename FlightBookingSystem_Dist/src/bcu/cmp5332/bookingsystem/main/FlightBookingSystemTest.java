@@ -30,7 +30,7 @@ public class FlightBookingSystemTest extends Main{
         command.execute(flightBookingSystemTest); //this works not sure how to implement across all yet
 
         // Create a sample customer (Sherlock Holmes)
-        Customer customerTest = new Customer(Integer.parseInt("1"), "John Doe", "123-456-7890");
+        Customer customerTest = new Customer(Integer.parseInt("1"), "John Doe", "123-456-7890", "JohnDoe@gmail.com");
 
         // Create a sample flight
         Flight flightTest = new Flight(Integer.parseInt("101"), "LNY 3568", "London", "New York", LocalDate.of(2024, 12, 31), Integer.parseInt("10"), Double.parseDouble("500.0"));
