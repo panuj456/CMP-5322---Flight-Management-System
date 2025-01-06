@@ -46,6 +46,10 @@ public class Booking {
 	public void setBookingDate(LocalDate bookingDate) {
 		this.bookingDate = bookingDate;
 	}
+	public Object getBookingID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
     
 }
