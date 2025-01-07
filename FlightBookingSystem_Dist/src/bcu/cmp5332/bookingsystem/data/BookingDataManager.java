@@ -33,7 +33,7 @@ public class BookingDataManager implements DataManager {
                     LocalDate bookingDate = LocalDate.parse(properties[2]);
                     Customer customer = fbs.getCustomerByID(customerID);
                     Flight flight = fbs.getFlightByID(flightID);
-                    Booking booking = new Booking(customer, flight, bookingDate); // ###Error, parsing objects as parameters that arent stored
+                    Booking booking = new Booking(customer, flight, bookingDate); 
                     customer.addBooking(booking);
                     flight.addPassenger(customer);
                 	fbs.addBookingList(booking);

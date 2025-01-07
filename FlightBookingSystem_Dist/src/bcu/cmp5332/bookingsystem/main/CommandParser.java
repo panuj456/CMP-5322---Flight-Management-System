@@ -3,6 +3,7 @@ package bcu.cmp5332.bookingsystem.main;
 import bcu.cmp5332.bookingsystem.commands.LoadGUI;
 import bcu.cmp5332.bookingsystem.commands.ShowCustomer;
 import bcu.cmp5332.bookingsystem.commands.ShowFlight;
+import bcu.cmp5332.bookingsystem.commands.UpdateBooking;
 import bcu.cmp5332.bookingsystem.model.FlightBookingSystem;
 import bcu.cmp5332.bookingsystem.commands.ListFlights;
 import bcu.cmp5332.bookingsystem.commands.AddCustomer;
@@ -95,7 +96,63 @@ public class CommandParser {
                 	int customerID = Integer.parseInt(parts[1]);
                 	int flightID = Integer.parseInt(parts[2]);
                 	return new CancelBooking(customerID, flightID);               
-                }                
+                }  
+                else if (cmd.equals("editbooking")) { //[booking id] [flight id] [bookingDate]
+                    //stored on customer, can modify and add parameter, ambiguous - make decision - justify
+                    	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                    	int customerID = Integer.parseInt(parts[1]);
+                   	 	int flightID = Integer.parseInt(parts[2]);
+                   	 	//LocalDate bookingDate = LocalDate.parse(parts[3]);
+                   	 	System.out.println("Enter Booking Date ");
+                   	 	String temp3 = reader.readLine();
+                   	 	LocalDate bookingDate = LocalDate.parse(temp3);
+                   	 	
+                   	 	int updateCustomerID = Integer.parseInt(parts[1]); //set update to same as input initially as no changes made
+                	 	int updateFlightID = Integer.parseInt(parts[2]);
+                	 	LocalDate updateBookingDate = bookingDate;//LocalDate.parse(parts[3]);
+                   	 	// Menu
+                   	 	System.out.println("Update - 1 for Change Customer Id");
+                   	 	System.out.println("Update - 2 for Change Flight Id");
+                   	 	System.out.println("Update - 3 for Change Booking Date");
+                   	 	System.out.println("Enter 4 to cancel input");
+    	                String temp = reader.readLine();
+    	                int selection = Integer.parseInt(temp);
+    	                if (selection == 1){
+                            System.out.println("Update - Enter Customer ID (else type 'no')");
+                            String temp2 = reader.readLine();
+                            if (temp2 == "no") {
+                            	; //pass
+                            }
+                            else {
+                            updateCustomerID = Integer.parseInt(temp2);
+                            }
+                        }
+                        else if (selection == 2){
+                            System.out.println("Update - Enter Flight ID (else type 'n')");
+                            String temp2 = reader.readLine();
+                            if (temp2 == "no") {
+                            	; //pass
+                            }
+                            else {
+                            updateFlightID = Integer.parseInt(temp2);
+                            }     
+                        }
+                        if (selection == 3){
+                            System.out.println("Update - Enter Booking Date (YYYY-MM-DD) (else type 'no')");
+                            String temp2 = reader.readLine();
+                            if (temp2 == "no") {
+                            	; //pass
+                            }
+                            else {
+                            updateBookingDate = LocalDate.parse(temp2);  
+                            }
+                        }
+                        else if (selection == 4) {
+                        	return new UpdateBooking(customerID, flightID, bookingDate, updateCustomerID, updateFlightID, updateBookingDate);
+                        }
+                        return new UpdateBooking(customerID, flightID, bookingDate, updateCustomerID, updateFlightID, updateBookingDate);              
+                    }
+
             } 
             //Solely for FlightBookingSystemTest
             else if (parts.length == 4) {//for bookings
@@ -106,49 +163,10 @@ public class CommandParser {
                 	String email = parts[3];
                     return new AddCustomer(name, phone, email);  
                 }
-                else if (cmd.equals("editbooking")) { //[booking id] [flight id] [bookingDate]
-                //stored on customer, can modify and add parameter, ambiguous - make decision - justify
-                	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                	int customerID = Integer.parseInt(parts[1]);
-               	 	int flightID = Integer.parseInt(parts[2]);
-               	 	LocalDate bookingDate = LocalDate.parse(parts[3]);
-               	 	// Menu
-               	 	System.out.println("Update - 1 for Change Customer Id");
-               	 	System.out.println("Update - 2 for Change Flight Id");
-               	 	System.out.println("Update - 3 for Change Booking Date");
-	                String temp = reader.readLine();
-	                int selection = Integer.parseInt(temp);
-	                if (selection == 1){
-                        System.out.println("Update - Enter Customer ID (else type 'n')");
-                        String temp2 = reader.readLine();
-                        int updateCustomerID = Integer.parseInt(temp2);
-                        
-                        
-                    }
-                    else if (selection == 2){
-                        System.out.println("Update - Enter Flight ID (else type 'n')");
-                        String temp2 = reader.readLine();
-                        int updateFlightID = Integer.parseInt(temp2);
-                        
-                        
-                    }
-                    if (selection == 3){
-                        System.out.println("Update - Enter Booking Date (YYYY-MM-DD) (else type 'n')");
-                        String temp2 = reader.readLine();
-                        LocalDate updateBookingDate = LocalDate.parse(temp2);
-                        
-                        
-                    }
-                
-				return new UpdateBooking(customerID, flightID, bookingDate, updateCustomerID, updateFlightID, updateBookingDate);              
-                } 
-             } 
+              } 
         } catch (NumberFormatException ex) {
-
-        }
-        throw new FlightBookingSystemException("Invalid command.");
+        } throw new FlightBookingSystemException("Invalid command.");
     }
-    
     private static LocalDate parseDateWithAttempts(BufferedReader br, int attempts) throws IOException, FlightBookingSystemException {
         if (attempts < 1) {
             throw new IllegalArgumentException("Number of attempts should be higher that 0");

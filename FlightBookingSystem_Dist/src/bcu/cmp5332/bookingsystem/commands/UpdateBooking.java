@@ -54,6 +54,7 @@ public class UpdateBooking implements Command {
     	if (updatedCustId!=customerID) { //if not working get rid of if statements
     		tempBooking.setCustomer(updatedCustomer);
     		oldCustomer.removeBooking(tempBooking);
+    		System.out.println("Customer ID " + oldCustomer.getId() + " updated to " + updatedCustomer.getId());
     	}
     	else if (updatedFlightId!=flightID) {
     		tempBooking.setFlight(updatedFlight);
@@ -62,11 +63,14 @@ public class UpdateBooking implements Command {
     	}
     	else if (updatedBookingDate!=bookingDate) {
     		tempBooking.setBookingDate(updatedBookingDate);
+    		System.out.println("Flight ID " + oldFlight.getId() + " updated to " + updatedFlight.getId());
     	}
-    	
-        System.out.println("Customer ID " + oldCustomer.getId() + " updated to " + updatedCustomer.getId());
-        System.out.println("Flight ID " + oldFlight.getId() + " updated to " + updatedFlight.getId());
-        System.out.println(bookingsList.get(id).getDetailsShort());
+        
+        //check changes applied coorectly
+        for (Booking booking : bookingsList) {
+            System.out.println(booking.getDetailsShort());
+        }
+        System.out.println(bookingsList.size() + " booking(s)");
 
     }
 }

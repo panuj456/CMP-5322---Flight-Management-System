@@ -1,6 +1,9 @@
 package bcu.cmp5332.bookingsystem.commands;
 
+import bcu.cmp5332.bookingsystem.data.FlightBookingSystemData;
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -31,15 +34,34 @@ public class AddBooking implements Command {
     	
     	Booking newBooking = new Booking(customer, flight, bookingDate);
     	
+    	Boolean duplicate = false;
+    	for (Booking booking: flightBookingSystem.getBookingsB()) {
+    		if (booking.getCustomerId() == newBooking.getCustomerId() && booking.getFlightId() == newBooking.getFlightId()) {
+    			duplicate = true;
+    			//temp booking flight and customer here check passagner is not in flight
+    		}
+    	}
+    	
     	List<Customer> temp = flight.getPassengers();
-        if (temp.size() < flight.getCapacity()) {
+        if (temp.size() < flight.getCapacity() && duplicate == false) {
         	flight.addPassenger(customer); 
         	customer.addBooking(newBooking);
         	flightBookingSystem.addBookingList(newBooking);
             System.out.println("Customer ID " + customer.getId() + " added booking for " + newBooking.getDetailsShort());
-        }
+            try {
+				FlightBookingSystemData.store(flightBookingSystem);
+				System.out.println("Update successfully stored");
+				} catch (IOException e) {
+					throw new FlightBookingSystemException("Updates could not be stored.");
+				}
+            }
         else {
-        	System.out.println("Flight #" + flight.getId() + " capacity reached, passenger not addedd to flight, booking not added to system.");
+        	if (duplicate == true) {
+        		System.out.println("Booking cannot be added, duplicate booking already made"); //change to throw exception
+        	}
+        	else {
+        	System.out.println("Flight #" + flight.getId() + " capacity reached, passenger not added to flight, booking not added to system."); //change to throw exception
+        	}
         }
     }
 }
