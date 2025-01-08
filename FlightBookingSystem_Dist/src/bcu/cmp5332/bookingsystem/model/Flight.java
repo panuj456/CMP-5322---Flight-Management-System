@@ -17,10 +17,11 @@ public class Flight {
     private LocalDate departureDate;
     private int capacity;
     private double price;
+    private Boolean inView;
 
     private final Set<Customer> passengers;
 
-    public Flight(int id, String flightNumber, String origin, String destination, LocalDate departureDate, int capacity, double price) {
+    public Flight(int id, String flightNumber, String origin, String destination, LocalDate departureDate, int capacity, double price, Boolean inView) {
         this.id = id;
         this.flightNumber = flightNumber;
         this.origin = origin;
@@ -28,10 +29,19 @@ public class Flight {
         this.departureDate = departureDate;
         this.capacity = capacity; //need method to check passanger capacity isnt full before adding customer
         this.price = price;
+		this.inView = inView;
         
         passengers = new HashSet<>();
     }
-
+    
+    public Boolean getFlightInView() {
+    	return inView;
+    }
+    
+    public void setFlightInView(Boolean out) {
+    	this.inView = out;
+    }
+    
 	public int getId() {
         return id;
     }

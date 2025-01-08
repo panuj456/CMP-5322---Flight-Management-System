@@ -76,7 +76,7 @@ public class UpdateBooking implements Command {
 				throw new FlightBookingSystemException("Updates could not be stored.");
 			}
         
-        //check changes applied coorectly
+        //check changes applied corectly - can be removed 8-1-25
         for (Booking booking : bookingsList) {
             System.out.println(booking.getDetailsShort());
         }

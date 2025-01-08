@@ -31,11 +31,11 @@ public class FlightBookingSystemTest {
         command.execute(flightBookingSystemTest); //this works not sure how to implement across all yet
 
         // Create a sample customer (Sherlock Holmes)
-        Customer customerTest = new Customer(Integer.parseInt("10"), "Sherlock Holmes", "07890123456", "sherlock.holmes@spectaclestreet.com");
+        Customer customerTest = new Customer(Integer.parseInt("10"), "Sherlock Holmes", "07890123456", "sherlock.holmes@spectaclestreet.com", true);
 
 
         // Create a sample flight
-        Flight flightTest = new Flight(Integer.parseInt("101"), "LNY 3568", "London", "New York", LocalDate.of(2024, 12, 31), Integer.parseInt("10"), Double.parseDouble("500.0"));
+        Flight flightTest = new Flight(Integer.parseInt("101"), "LNY 3568", "London", "New York", LocalDate.of(2024, 12, 31), Integer.parseInt("10"), Double.parseDouble("500.0"), true);
 
 		String customerCommand = "addcustomertest Sherlock-Holmes 07890123456";
 		Command addCustomerCommand = CommandParser.parse(customerCommand);

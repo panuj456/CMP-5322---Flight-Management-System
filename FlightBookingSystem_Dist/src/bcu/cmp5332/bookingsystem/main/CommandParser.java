@@ -11,6 +11,8 @@ import bcu.cmp5332.bookingsystem.commands.AddFlight;
 import bcu.cmp5332.bookingsystem.commands.AddBooking;
 import bcu.cmp5332.bookingsystem.commands.Command;
 import bcu.cmp5332.bookingsystem.commands.Help;
+import bcu.cmp5332.bookingsystem.commands.HideCustomer;
+import bcu.cmp5332.bookingsystem.commands.HideFlight;
 import bcu.cmp5332.bookingsystem.commands.ListBookings;
 import bcu.cmp5332.bookingsystem.commands.ListCustomers;
 import bcu.cmp5332.bookingsystem.commands.CancelBooking;
@@ -81,8 +83,16 @@ public class CommandParser {
                     
                 } else if (cmd.equals("showcustomer")) {
                 	return new ShowCustomer(id);
+                
+                } else if (cmd.equals("removecustomer")) {
+                	int customerID = Integer.parseInt(parts[1]);
+                	return new HideCustomer(customerID);
+                
+                } else if (cmd.equals("removeflight")) {
+                	int flightID = Integer.parseInt(parts[1]);
+                	return new HideFlight(flightID);
                 }
-            
+                
             } else if (parts.length == 3) {//for bookings {
        
                 if (cmd.equals("addbooking")) {

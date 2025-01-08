@@ -13,15 +13,17 @@ public class Customer {
     private String name;
     private String phone;
     private String address;
+    private Boolean inView;
     
     private final ArrayList<Booking> bookings; //bookingID seen in menu, given its own parameter now
     
     // TODO: implement constructor here
-	public Customer(int id, String name, String phone, String address) {
+	public Customer(int id, String name, String phone, String address, Boolean inView) {
 		this.id = id;
 		this.name = name;
 		this.phone = phone; 
 		this.address = address; //email
+		this.inView = inView;
 		bookings = new ArrayList<>(); //of objects
 		}
 	
@@ -45,7 +47,15 @@ public class Customer {
     	bookings.add(booking);
     }
     
-    public void removeBooking(Booking booking) throws FlightBookingSystemException {
+    public Boolean getInView() {
+		return inView;
+	}
+
+	public void setInView(Boolean inView) {
+		this.inView = inView;
+	}
+
+	public void removeBooking(Booking booking) throws FlightBookingSystemException {
     	bookings.remove(booking);
     }
     

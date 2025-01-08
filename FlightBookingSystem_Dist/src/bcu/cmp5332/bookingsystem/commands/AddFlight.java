@@ -34,7 +34,7 @@ public class AddFlight implements  Command {
             maxId = flightBookingSystem.getFlights().get(lastIndex).getId();
         }
         
-        Flight flight = new Flight(++maxId, flightNumber, origin, destination, departureDate, capacity, price);
+        Flight flight = new Flight(++maxId, flightNumber, origin, destination, departureDate, capacity, price, true); //first addition, will need to see then can be set false after
         flightBookingSystem.addFlight(flight);
         System.out.println("Flight #" + flight.getId() + " added.");
         

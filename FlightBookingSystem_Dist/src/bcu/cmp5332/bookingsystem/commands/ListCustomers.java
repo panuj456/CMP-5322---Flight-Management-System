@@ -12,10 +12,16 @@ public class ListCustomers implements Command {
 	public void execute(FlightBookingSystem flightBookingSystem) throws FlightBookingSystemException {
 		// TODO Auto-generated method stub
 		 List<Customer> customers = flightBookingSystem.getCustomers();
+		 int count = 0; //does not delete but hides
 	        for (Customer customer : customers) {
-	            System.out.println(customer.getDetailsShort());
+	        	
+	        	if (customer.getInView() == true) {//if hiding when deleted, why keep in system?? nonsensical seeming
+	                System.out.println(customer.getDetailsShort());
+	                count++;
+	            	}
 	        }
-	        System.out.println(customers.size() + " customer(s)"); //check API
+	        System.out.println(count + " customer(s)");
+	        //System.out.println(customers.size() + " customer(s)"); //check API
 	}
 
 }

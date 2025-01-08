@@ -16,7 +16,7 @@ public class CancelBooking implements Command {
 	private final int customerID;
     private final int flightID;
 
-    public CancelBooking(int customerID, int flightID) {
+    public CancelBooking(int customerID, int flightID) { //if flight or customer hidden, will have to cancel booking??
         this.customerID = customerID;
         this.flightID = flightID;
     	}
