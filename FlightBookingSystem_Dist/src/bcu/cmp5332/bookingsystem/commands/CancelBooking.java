@@ -58,7 +58,9 @@ public class CancelBooking implements Command {
 	    				throw new FlightBookingSystemException("Updates could not be stored.");
 	    			}     
 	        }
-        } 
+        }
+	else{    
         throw new FlightBookingSystemException("Booking could not be found to be cancelled.");
+	}
     }	
 }
