@@ -43,17 +43,22 @@ public class CancelBooking implements Command {
         	}
         }
         //must keep any modifications outside of iteration - Java rules
-        customer.removeBooking(temp); 
-        flight.removePassenger(customerTemp);
-		flightBookingSystem.removeBooking(temp); //must use count, object in this form does not exist with date
-		//working, updates stored even when exit isnt typed - not sure how rollback should be implemented other than changes arent implemented if IOException is met
-		try {
-			FlightBookingSystemData.store(flightBookingSystem);
-			System.out.println("Update successfully stored");
-			} catch (IOException e) {
-				throw new FlightBookingSystemException("Updates could not be stored.");
-			} 
-		System.out.println("Customer ID " + customerTemp.getId() + " canceled booking for " + temp.getDetailsShort());
-    
+        if (temp != null && customerTemp != null) { //cant cancel bookings if no modification to objects (if statement in for not flagged)
+	        if (temp.getCustomerId() == this.customerID
+	    			&& temp.getFlightId() == this.flightID) {
+	        	customer.removeBooking(temp); 
+	        	flight.removePassenger(customerTemp);
+	        	flightBookingSystem.removeBooking(temp); //must use count, object in this form does not exist with date
+	    		System.out.println("Customer ID " + customerTemp.getId() + " canceled booking for " + temp.getDetailsShort());
+	    		//working, updates stored even when exit isnt typed - not sure how rollback should be implemented other than changes arent implemented if IOException is met
+	    		try {
+	    			FlightBookingSystemData.store(flightBookingSystem);
+	    			System.out.println("Update successfully stored");
+	    			} catch (IOException e) {
+	    				throw new FlightBookingSystemException("Updates could not be stored.");
+	    			}     
+	        }
+        } 
+        throw new FlightBookingSystemException("Booking could not be found to be cancelled.");
     }	
 }
