@@ -4,6 +4,8 @@ import bcu.cmp5332.bookingsystem.data.FlightBookingSystemData;
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
 import bcu.cmp5332.bookingsystem.model.Flight;
 import bcu.cmp5332.bookingsystem.model.FlightBookingSystem;
+
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class AddFlight implements  Command {
@@ -35,6 +37,14 @@ public class AddFlight implements  Command {
         Flight flight = new Flight(++maxId, flightNumber, origin, destination, departureDate, capacity, price);
         flightBookingSystem.addFlight(flight);
         System.out.println("Flight #" + flight.getId() + " added.");
+        
+		//working, updates stored even when exit isnt typed - not sure how rollback should be implemented other than changes arent implemented if IOException is met   
+        try {
+			FlightBookingSystemData.store(flightBookingSystem);
+			System.out.println("Update successfully stored");
+			} catch (IOException e) {
+				throw new FlightBookingSystemException("Updates could not be stored.");
+			}
         //FlightBookingSystemData.store(fbs);
     }
 }

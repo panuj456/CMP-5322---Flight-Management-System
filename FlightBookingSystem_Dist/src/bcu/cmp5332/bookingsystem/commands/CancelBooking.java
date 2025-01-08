@@ -1,8 +1,10 @@
 package bcu.cmp5332.bookingsystem.commands;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
+import bcu.cmp5332.bookingsystem.data.FlightBookingSystemData;
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
 import bcu.cmp5332.bookingsystem.model.Booking;
 import bcu.cmp5332.bookingsystem.model.Customer;
@@ -45,5 +47,13 @@ public class CancelBooking implements Command {
         flight.removePassenger(customerTemp);
 		flightBookingSystem.removeBooking(temp); //must use count, object in this form does not exist with date
 		System.out.println("Customer ID " + customerTemp.getId() + " canceled booking for " + temp.getDetailsShort());
+		
+		//working, updates stored even when exit isnt typed - not sure how rollback should be implemented other than changes arent implemented if IOException is met
+		try {
+			FlightBookingSystemData.store(flightBookingSystem);
+			System.out.println("Update successfully stored");
+			} catch (IOException e) {
+				throw new FlightBookingSystemException("Updates could not be stored.");
+			}
     }
 }

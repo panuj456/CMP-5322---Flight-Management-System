@@ -1,5 +1,8 @@
 package bcu.cmp5332.bookingsystem.commands;
 
+import java.io.IOException;
+
+import bcu.cmp5332.bookingsystem.data.FlightBookingSystemData;
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
 import bcu.cmp5332.bookingsystem.model.Customer;
 import bcu.cmp5332.bookingsystem.model.FlightBookingSystem;
@@ -29,6 +32,14 @@ public class AddCustomer implements Command {
         Customer customer = new Customer(++maxId, name, phone, address);
         flightBookingSystem.addCustomer(customer);
         System.out.println("Customer ID " + customer.getId() + " added.");
+        
+		//working, updates stored even when exit isnt typed - not sure how rollback should be implemented other than changes arent implemented if IOException is met
+        try {
+			FlightBookingSystemData.store(flightBookingSystem);
+			System.out.println("Update successfully stored");
+			} catch (IOException e) {
+				throw new FlightBookingSystemException("Updates could not be stored.");
+			}
     }
    }
 

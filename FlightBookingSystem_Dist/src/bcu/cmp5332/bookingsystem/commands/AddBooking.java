@@ -48,6 +48,8 @@ public class AddBooking implements Command {
         	customer.addBooking(newBooking);
         	flightBookingSystem.addBookingList(newBooking);
             System.out.println("Customer ID " + customer.getId() + " added booking for " + newBooking.getDetailsShort());
+            
+    		//working, updates stored even when exit isnt typed - not sure how rollback should be implemented other than changes arent implemented if IOException is met
             try {
 				FlightBookingSystemData.store(flightBookingSystem);
 				System.out.println("Update successfully stored");
