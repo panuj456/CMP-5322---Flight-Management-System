@@ -1,18 +1,32 @@
 bookings.txt:
 9::1::2024-12-28::
 8::1::2024-12-28::
-1::2::2024-12-28::
+1::2::2024-06-28::
 2::2::2024-12-28::
+7::1::2025-01-07::
+5::5::2025-01-09::
+6::5::2025-01-09::
+7::5::2025-01-09::
+8::5::2025-01-09::
+9::5::2025-01-09::
+3::5::2025-01-09::
+4::5::2025-01-09::
+2::5::2025-01-09::
 customers.txt:
-1::Abdel-Rahman Tawil::07555555555::
-2::Kostas Vlachos::07596454545::
-3::Panu::07465388825::
-4::Mohammad Ali Ahmadzai::07538277735::
-5::Jephta Zekeng::07937462520::
-6::William Merrick::07923442318::
-7::Kacper Popis::07352644427::
-8::Angelo::078447545462::
-9::Summer::07563546254::
+1::Abdel-Rahman Tawil::07555555555::ART@gmail.com::true::
+2::Kostas Vlachos::07596454545::KV@gmail.com::true::
+3::Panu::07465388825::panu.kj@gmail.com::true::
+4::Mohammad Ali Ahmadzai::07538277735::Ali@gmail.com::true::
+5::Jephta Zekeng::07937462520::j.zekeng@gmail.com::true::
+6::William Merrick::07923442318::will.merick@gmail.com::true::
+7::Kacper Popis::07352644427::k.popis@gmail.com::true::
+8::Angelo Lagdameo::078447545462::angelo.lag@gmail.com::true::
+9::Summer Lawless::07563546254::summer.law@gmail.com::true::
+10::jephta::0746565656565656::dfkhsakfhdka@gmail.com::true::
+11::JohnDoe::07482473829::JDoe@gmailcom::true::
 flights.txt:
-1::LH2560::Birmingham::Munich::2022-11-25::120::70.99
-2::MX24124::Manchester::Lisbon::2024-11-24::70::50.99
+1::LH2560::Birmingham::Munich::2022-11-25::120::70.99::true::
+2::MX24124::Manchester::Lisbon::2024-11-24::70::50.99::true::
+3::JED3571::Gatwick::Jeddah::2024-09-01::70::299.99::true::
+4::LH2348::Birmingham ::Barcalona ::2025-12-12::80::20.0::true::
+5::LTG345::Luton::Gatwick::2025-01-03::8::10.99::true::

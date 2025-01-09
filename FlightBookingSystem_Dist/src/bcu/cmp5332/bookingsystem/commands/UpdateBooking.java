@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
 import bcu.cmp5332.bookingsystem.model.Booking;
 import bcu.cmp5332.bookingsystem.commands.UpdateBooking;
 import bcu.cmp5332.bookingsystem.data.FlightBookingSystemData;
@@ -37,16 +36,13 @@ public class UpdateBooking implements Command {
 
     @Override
     public void execute(FlightBookingSystem flightBookingSystem) throws FlightBookingSystemException {
-    	//FlightBookingSystem preChangeFBS = flightBookingSystem; //does not work - not sure how rollback should be implemented other than changes arent implemented if IOException is met
     	List<Booking> bookingsList = flightBookingSystem.getBookingsB();
-    	int id = 0;
     	Booking tempBooking = new Booking(flightBookingSystem.getCustomerByID(customerID), flightBookingSystem.getFlightByID(flightID), bookingDate);
     	for (Booking booking : bookingsList) { //looking for specific booking object
 			if (booking.getCustomerId()==customerID
 	                 && booking.getFlightId()==flightID) {
 				tempBooking = booking;
 			}
-			id++;	
 		}
     	
     	Customer updatedCustomer = flightBookingSystem.getCustomerByID(updatedCustId); //finds new customer object

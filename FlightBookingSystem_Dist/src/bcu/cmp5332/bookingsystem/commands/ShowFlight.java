@@ -1,8 +1,5 @@
 package bcu.cmp5332.bookingsystem.commands;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
 import bcu.cmp5332.bookingsystem.model.Customer;
 import bcu.cmp5332.bookingsystem.model.Flight;

@@ -2,10 +2,7 @@ package bcu.cmp5332.bookingsystem.model;
 
 import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class Customer {
     

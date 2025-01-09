@@ -4,7 +4,6 @@ import bcu.cmp5332.bookingsystem.commands.LoadGUI;
 import bcu.cmp5332.bookingsystem.commands.ShowCustomer;
 import bcu.cmp5332.bookingsystem.commands.ShowFlight;
 import bcu.cmp5332.bookingsystem.commands.UpdateBooking;
-import bcu.cmp5332.bookingsystem.model.FlightBookingSystem;
 import bcu.cmp5332.bookingsystem.commands.ListFlights;
 import bcu.cmp5332.bookingsystem.commands.AddCustomer;
 import bcu.cmp5332.bookingsystem.commands.AddFlight;
@@ -27,7 +26,7 @@ public class CommandParser {
     
     public static Command parse(String line) throws IOException, FlightBookingSystemException {
         try {
-            String[] parts = line.split(" ", 3);
+            String[] parts = line.split(" ", 4);
             String cmd = parts[0];
 
             
@@ -64,7 +63,7 @@ public class CommandParser {
             } else if (cmd.equals("showbookings")) {
             	return new ListBookings();
             			
-        	}else if (parts.length == 1) {
+        	} else if (parts.length == 1) {
                 
         		if (line.equals("listflights")) {
                     return new ListFlights();
@@ -163,20 +162,20 @@ public class CommandParser {
                         return new UpdateBooking(customerID, flightID, bookingDate, updateCustomerID, updateFlightID, updateBookingDate);              
                     }
 
-            } 
-            //Solely for FlightBookingSystemTest
+            } //Solely for FlightBookingSystemTest
             else if (parts.length == 4) {//for bookings
-                
                 if (cmd.equals("addcustomertest")) {
                 	String name = parts[1];
                 	String phone = parts[2];
                 	String email = parts[3];
                     return new AddCustomer(name, phone, email);  
                 }
-              } 
+              }
+            
         } catch (NumberFormatException ex) {
-        } throw new FlightBookingSystemException("Invalid command.");
+        	} throw new FlightBookingSystemException("Invalid command.");
     }
+    
     private static LocalDate parseDateWithAttempts(BufferedReader br, int attempts) throws IOException, FlightBookingSystemException {
         if (attempts < 1) {
             throw new IllegalArgumentException("Number of attempts should be higher that 0");

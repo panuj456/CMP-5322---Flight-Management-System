@@ -1,8 +1,6 @@
 package bcu.cmp5332.bookingsystem.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Booking {
     

@@ -1,4 +1,0 @@
-1::LH2560::Birmingham::Munich::2022-11-25::120::70.99::false::
-2::MX24124::Manchester::Lisbon::2024-11-24::70::50.99::false::
-3::JED3571::Gatwick::Jeddah::2024-09-01::70::299.99::false::
-4::LH2348::Birmingham ::Barcalona ::2025-12-12::80::20.0::false::

@@ -5,6 +5,7 @@ package bcu.cmp5332.bookingsystem.main;
  * that is used to notify the user about errors or invalid commands.
  * 
  */
+
 public class FlightBookingSystemException extends Exception {
 
     public FlightBookingSystemException(String message) {

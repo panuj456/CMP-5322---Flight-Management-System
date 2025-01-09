@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-import bcu.cmp5332.bookingsystem.main.FlightBookingSystemException;
 import bcu.cmp5332.bookingsystem.model.Booking;
 import bcu.cmp5332.bookingsystem.model.Customer;
 import bcu.cmp5332.bookingsystem.model.Flight;
@@ -43,7 +42,7 @@ public class AddBooking implements Command {
     	}
     	
     	List<Customer> temp = flight.getPassengers();
-        if (temp.size() < flight.getCapacity() && duplicate == false) {
+        if (temp.size() < flight.getCapacity() && duplicate == false) { //check
         	flight.addPassenger(customer); 
         	customer.addBooking(newBooking);
         	flightBookingSystem.addBookingList(newBooking);
