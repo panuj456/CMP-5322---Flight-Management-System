@@ -31,7 +31,7 @@ public class FlightDataManager implements DataManager {
                     Double price = Double.parseDouble(properties[6]); //flight price should change and be here
                     Boolean inView = Boolean.parseBoolean(properties[7]);         
                     Boolean departed = departureDate.isAfter(LocalDate.now());
-                    LocalDate latestDate = LocalDate.parse(properties[9]); //used to ensure everytime fbs main is run, a price increase does not happen on the same day
+                    LocalDate latestDate = LocalDate.parse(properties[8]); //used to ensure everytime fbs main is run, a price increase does not happen on the same day
                     Flight flight = new Flight(id, flightNumber, origin, destination, departureDate, capacity, price, inView, departed, latestDate);
                     
                     if (latestDate.isEqual(LocalDate.now())) {
@@ -46,6 +46,7 @@ public class FlightDataManager implements DataManager {
                     		price = price * 0.95;
                     		latestDate = LocalDate.now();
                     	}
+                    	flight.setLatestDate(latestDate);
                     }
                     fbs.addFlight(flight);
                 } catch (NumberFormatException ex) {
@@ -69,7 +70,6 @@ public class FlightDataManager implements DataManager {
                 out.print(flight.getCapacity() + SEPARATOR);
                 out.print(flight.getPrice() + SEPARATOR);
                 out.print(flight.getFlightInView() + SEPARATOR);
-                out.print(flight.getDeparted() + SEPARATOR);
                 out.print(flight.getLatestDate() + SEPARATOR);
                 out.println();
             }
