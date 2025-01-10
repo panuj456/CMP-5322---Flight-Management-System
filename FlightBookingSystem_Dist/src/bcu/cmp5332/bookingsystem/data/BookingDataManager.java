@@ -32,7 +32,10 @@ public class BookingDataManager implements DataManager {
                     LocalDate bookingDate = LocalDate.parse(properties[2]);
                     Customer customer = fbs.getCustomerByID(customerID);
                     Flight flight = fbs.getFlightByID(flightID);
-                    Booking booking = new Booking(customer, flight, bookingDate); 
+                    Boolean departed = flight.getDeparted();
+                    Double price = Double.parseDouble(properties[3]);							//booking price already purchased so should not change, bookings should list price bought at not current air price
+                    Double fee = Double.parseDouble(properties[4]);
+                    Booking booking = new Booking(customer, flight, bookingDate, departed, price, fee); 
                     customer.addBooking(booking);
                     flight.addPassenger(customer);
                 	fbs.addBookingList(booking);
@@ -54,7 +57,13 @@ public class BookingDataManager implements DataManager {
             for (Booking booking : fbs.getBookings()) {
                 out.print(booking.getCustomerId() + SEPARATOR);
                 out.print(booking.getFlightId() + SEPARATOR);
-                out.print(booking.getBookingDate() + SEPARATOR);
+                out.print(booking.getBookingDate() + SEPARATOR); 
+                out.print(booking.getPrice() + SEPARATOR); 
+                out.print(booking.getFee() + SEPARATOR); 
+                /**
+                 * no need for departed to be stored as fixates upon status of flight.getDeparted which checks
+                 * the departuredate vs current date
+                 */
                 out.println();
             }
         }

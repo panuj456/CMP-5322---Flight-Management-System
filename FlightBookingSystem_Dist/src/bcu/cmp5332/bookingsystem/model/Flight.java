@@ -18,10 +18,12 @@ public class Flight {
     private int capacity;
     private double price;
     private Boolean inView;
+    private Boolean departed;
+    private LocalDate latestDate; //last date price was increased
 
     private final Set<Customer> passengers;
 
-    public Flight(int id, String flightNumber, String origin, String destination, LocalDate departureDate, int capacity, double price, Boolean inView) {
+    public Flight(int id, String flightNumber, String origin, String destination, LocalDate departureDate, int capacity, double price, Boolean inView, Boolean departed, LocalDate latestDate) {
         this.id = id;
         this.flightNumber = flightNumber;
         this.origin = origin;
@@ -30,11 +32,28 @@ public class Flight {
         this.capacity = capacity; //need method to check passanger capacity isnt full before adding customer
         this.price = price;
 		this.inView = inView;
+		this.departed = true;
+		this.latestDate = latestDate;
         
         passengers = new HashSet<>();
     }
     
-    public Boolean getFlightInView() {
+    public LocalDate getLatestDate() {
+		return latestDate;
+	}
+	public void setLatestDate(LocalDate latestDate) {
+		this.latestDate = latestDate;
+	}
+    
+    public Boolean getDeparted() {
+		return departed;
+	}
+
+	public void setDeparted(Boolean departed) {
+		this.departed = departed;
+	}
+
+	public Boolean getFlightInView() {
     	return inView;
     }
     
@@ -106,7 +125,7 @@ public class Flight {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY");
         return "Flight #" + id + " - " + flightNumber + " - " + origin + " to " 
                 + destination + " on " + departureDate.format(dtf) + " at price " + price
-                + " capacity " + passengers.size() + "/" + capacity;
+                + " capacity " + passengers.size() + "/" + capacity + " Departed - " + departed;
     }
 
     public String getDetailsLong() {

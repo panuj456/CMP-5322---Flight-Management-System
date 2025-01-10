@@ -34,7 +34,12 @@ public class AddFlight implements  Command {
             maxId = flightBookingSystem.getFlights().get(lastIndex).getId();
         }
         
-        Flight flight = new Flight(++maxId, flightNumber, origin, destination, departureDate, capacity, price, true); //first addition, will need to see then can be set false after
+        Boolean departed = false;
+        if (departureDate.isAfter(LocalDate.now())) {
+        	departed = true;
+        }
+        
+        Flight flight = new Flight(++maxId, flightNumber, origin, destination, departureDate, capacity, price, true, departed, LocalDate.now()); //first addition, will need to see then can be set false after
         flightBookingSystem.addFlight(flight);
         System.out.println("Flight #" + flight.getId() + " added.");
         
@@ -45,6 +50,12 @@ public class AddFlight implements  Command {
 			} catch (IOException e) {
 				throw new FlightBookingSystemException("Updates could not be stored.");
 			}
-        //FlightBookingSystemData.store(fbs);
+        /**
+         * For a validated updating of data, the FlightBookingSystemData.store will store the current
+         * state of flightBookingSystem object into the .txt files. This happens at every sucessful
+         * update, thus even not typing exit, will still store the state of the program after the last
+         * update made and a print message displayed to user.
+         * If an update can't be made, a FlightBookingSystemException is thrown.
+         */
     }
 }

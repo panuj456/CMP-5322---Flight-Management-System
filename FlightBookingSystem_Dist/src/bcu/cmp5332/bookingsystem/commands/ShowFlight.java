@@ -18,7 +18,7 @@ public class ShowFlight implements Command {
         Flight flight = flightBookingSystem.getFlightByID(this.id);
         System.out.println("Flight ID ("+this.id+") details "+ flight.getDetailsShort());
         for (Customer item : flight.getPassengers()) {
-        	if (flight.getFlightInView() == true) {
+        	if (item.getInView() == true) {
         		System.out.println(item.getDetailsShort());
         	}
         }

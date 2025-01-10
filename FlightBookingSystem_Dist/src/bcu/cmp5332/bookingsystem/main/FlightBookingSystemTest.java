@@ -3,10 +3,12 @@ package bcu.cmp5332.bookingsystem.main;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.After;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,6 +17,13 @@ import bcu.cmp5332.bookingsystem.data.FlightBookingSystemData;
 import bcu.cmp5332.bookingsystem.model.*;
 
 public class FlightBookingSystemTest {
+
+    private static final String ORIGINAL_CUSTOMERS = "resources/data/original_customers.txt";
+    private static final String ORIGINAL_FLIGHTS = "resources/data/original_flights.txt";
+    private static final String ORIGINAL_BOOKINGS = "resources/data/original_bookings.txt";
+    private static final String TEST_CUSTOMERS = "customers.txt";
+    private static final String TEST_FLIGHTS = "flights.txt";
+    private static final String TEST_BOOKINGS = "bookings.txt";
 
     public FlightBookingSystem flightBookingSystemTest;
 
@@ -26,16 +35,27 @@ public class FlightBookingSystemTest {
         Customer customer = new Customer(2, "Kostas Vlachos", "07596454545", "kostas.vlachos@gmail.com", true);
         flightBookingSystemTest.addCustomer(customer);
 
-        Flight flight = new Flight(2, "MX24124", "Manchester", "Lisbon", LocalDate.of(2024, 11, 24), 70, 50.99, true);
+        Flight flight = new Flight(2, "MX24124", "Manchester", "Lisbon", LocalDate.of(2024, 11, 24), 70, 50.99, true, false);
         flightBookingSystemTest.addFlight(flight);
 
         FlightBookingSystemData.store(flightBookingSystemTest);
     }
 
     private void clearFiles() throws IOException {
-        Files.write(Paths.get("customers.txt"), new byte[0]);
-        Files.write(Paths.get("flights.txt"), new byte[0]);
-        Files.write(Paths.get("bookings.txt"), new byte[0]);
+        Files.write(Paths.get(TEST_CUSTOMERS), new byte[0]);
+        Files.write(Paths.get(TEST_FLIGHTS), new byte[0]);
+        Files.write(Paths.get(TEST_BOOKINGS), new byte[0]);
+    }
+
+    private void restoreOriginalData() throws IOException {
+        Files.copy(Paths.get(ORIGINAL_CUSTOMERS), Paths.get(TEST_CUSTOMERS), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get(ORIGINAL_FLIGHTS), Paths.get(TEST_FLIGHTS), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get(ORIGINAL_BOOKINGS), Paths.get(TEST_BOOKINGS), StandardCopyOption.REPLACE_EXISTING);
+    }
+
+    @After
+    public void tearDown() throws IOException {
+        restoreOriginalData();
     }
 
     @Test
@@ -44,7 +64,7 @@ public class FlightBookingSystemTest {
         assertEquals("Kostas Vlachos", retrievedCustomer.getName());
         assertEquals("07596454545", retrievedCustomer.getPhone());
 
-        List<String> customerLines = Files.readAllLines(Paths.get("customers.txt"));
+        List<String> customerLines = Files.readAllLines(Paths.get(TEST_CUSTOMERS));
         assertTrue(customerLines.stream().anyMatch(line -> line.contains("Kostas Vlachos")));
     }
 
@@ -55,7 +75,7 @@ public class FlightBookingSystemTest {
         assertEquals("Manchester", retrievedFlight.getOrigin());
         assertEquals("Lisbon", retrievedFlight.getDestination());
 
-        List<String> flightLines = Files.readAllLines(Paths.get("flights.txt"));
+        List<String> flightLines = Files.readAllLines(Paths.get(TEST_FLIGHTS));
         assertTrue(flightLines.stream().anyMatch(line -> line.contains("Manchester")));
     }
 
@@ -71,7 +91,7 @@ public class FlightBookingSystemTest {
         assertTrue(customer.getBookings().stream().anyMatch(b -> b.getFlight().equals(flight)));
         assertEquals(1, flightBookingSystemTest.getBookings().size());
 
-        List<String> bookingLines = Files.readAllLines(Paths.get("bookings.txt"));
+        List<String> bookingLines = Files.readAllLines(Paths.get(TEST_BOOKINGS));
         assertTrue(bookingLines.stream().anyMatch(line -> line.contains("2::2")));
     }
 
@@ -90,7 +110,11 @@ public class FlightBookingSystemTest {
         assertFalse(customer.getBookings().stream().anyMatch(b -> b.getFlight().equals(flight)));
         assertEquals(0, flightBookingSystemTest.getBookings().size());
 
-        List<String> bookingLines = Files.readAllLines(Paths.get("bookings.txt"));
+        List<String> bookingLines = Files.readAllLines(Paths.get(TEST_BOOKINGS));
         assertFalse(bookingLines.stream().anyMatch(line -> line.contains("2::2")));
     }
 }
+
+
+
+

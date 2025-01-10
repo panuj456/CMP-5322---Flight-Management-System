@@ -28,9 +28,25 @@ public class FlightDataManager implements DataManager {
                     String destination = properties[3];
                     LocalDate departureDate = LocalDate.parse(properties[4]);
                     int capacity = Integer.parseInt(properties[5]);
-                    double price = Double.parseDouble(properties[6]);
-                    Boolean inView = Boolean.parseBoolean(properties[7]);
-                    Flight flight = new Flight(id, flightNumber, origin, destination, departureDate, capacity, price, inView);
+                    Double price = Double.parseDouble(properties[6]); //flight price should change and be here
+                    Boolean inView = Boolean.parseBoolean(properties[7]);         
+                    Boolean departed = departureDate.isAfter(LocalDate.now());
+                    LocalDate latestDate = LocalDate.parse(properties[9]); //used to ensure everytime fbs main is run, a price increase does not happen on the same day
+                    Flight flight = new Flight(id, flightNumber, origin, destination, departureDate, capacity, price, inView, departed, latestDate);
+                    
+                    if (latestDate.isEqual(LocalDate.now())) {
+                    	; //price remains same - no need to inform user of price increase
+                    }
+                    else if (departureDate.compareTo(LocalDate.now()) < 10) {
+                    	if (flight.getPassengers().size() > flight.getCapacity() * 0.75) {
+                    		price = price * 1.05;
+                    		latestDate = LocalDate.now();
+                    	}
+                    	else if (flight.getPassengers().size() < (int)flight.getCapacity() * 0.5) {
+                    		price = price * 0.95;
+                    		latestDate = LocalDate.now();
+                    	}
+                    }
                     fbs.addFlight(flight);
                 } catch (NumberFormatException ex) {
                     throw new FlightBookingSystemException("Unable to parse book id " + properties[0] + " on line " + line_idx
@@ -53,6 +69,8 @@ public class FlightDataManager implements DataManager {
                 out.print(flight.getCapacity() + SEPARATOR);
                 out.print(flight.getPrice() + SEPARATOR);
                 out.print(flight.getFlightInView() + SEPARATOR);
+                out.print(flight.getDeparted() + SEPARATOR);
+                out.print(flight.getLatestDate() + SEPARATOR);
                 out.println();
             }
         }

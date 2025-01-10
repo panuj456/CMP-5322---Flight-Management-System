@@ -10,7 +10,7 @@ public class FlightBookingSystem {
 
     private final Map<Integer, Customer> customers = new TreeMap<>();
     private final Map<Integer, Flight> flights = new TreeMap<>();
-    private final List<Booking> bookingsList = new ArrayList<>();
+    private final List<Booking> bookingsList = new ArrayList<>(); 
 
     public LocalDate getSystemDate() {
         return systemDate;
