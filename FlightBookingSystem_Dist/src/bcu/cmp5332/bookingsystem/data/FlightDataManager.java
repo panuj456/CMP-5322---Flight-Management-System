@@ -32,13 +32,17 @@ public class FlightDataManager implements DataManager {
                     Boolean inView = Boolean.parseBoolean(properties[7]);         
                     Boolean departed = departureDate.isAfter(LocalDate.now());
                     LocalDate latestDate = LocalDate.parse(properties[8]); //used to ensure everytime fbs main is run, a price increase does not happen on the same day
-                    Flight flight = new Flight(id, flightNumber, origin, destination, departureDate, capacity, price, inView, departed, latestDate);
+                    Flight flight = new Flight(id, flightNumber, origin, destination, departureDate, capacity, price, inView, departed, latestDate);                   
                     
+                    /*//caused issue in final submission - variable price works now
                     if (latestDate.isEqual(LocalDate.now())) {
-                    	; //price remains same - no need to inform user of price increase
+                    ; //price remains same - no need to inform user of price increase
                     }
-                    else if (departureDate.compareTo(LocalDate.now()) < 10) {
-                    	if (flight.getPassengers().size() > flight.getCapacity() * 0.75) {
+                    */
+                    //below was else if
+                    if (departureDate.compareTo(LocalDate.now()) < 10) {
+                    	//post submission - improvement could be more difference in cost for capacity and date separate calc
+                    	if (flight.getPassengers().size() > flight.getCapacity() * 0.75) { 
                     		price = price * 1.05;
                     		latestDate = LocalDate.now();
                     	}
@@ -47,6 +51,7 @@ public class FlightDataManager implements DataManager {
                     		latestDate = LocalDate.now();
                     	}
                     	flight.setLatestDate(latestDate);
+                    	flight.setPrice(price); //forgot to add line in final submission
                     }
                     fbs.addFlight(flight);
                 } catch (NumberFormatException ex) {
